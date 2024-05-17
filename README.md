@@ -21,8 +21,8 @@ The Stock Data Tracker is a real-time application that tracks stock prices using
 ## Getting Started
 
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/stock-data-tracker.git
-cd stock-data-tracker
+git clone https://github.com/yourusername/stock-data-tracker.git  
+ cd stock-data-tracker
 
 ### 2. Create .env file and add following
 FINNHUB_API_KEY=your_finnhub_api_key
