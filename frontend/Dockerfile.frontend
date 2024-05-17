@@ -1,0 +1,9 @@
+# Use a lightweight HTTP server as a parent image
+FROM nginx:alpine
+
+# Copy the HTML files into the container
+COPY . /usr/share/nginx/html
+
+# Expose the port the frontend runs on
+EXPOSE 8085
+

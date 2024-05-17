@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  consumer:
+    build: 
+      context: .
+      dockerfile: backend/Dockerfile.consumer
+    ports:
+      - "5000:5000"
+
+  producer:
+    build: 
+      context: .
+      dockerfile: producer/Dockerfile.websocket
+    depends_on:
+      - consumer
+
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro  # Mount the frontend directory as the nginx document root
+    ports:
+      - "8085:80"  # Expose port 80 to access the frontend
+

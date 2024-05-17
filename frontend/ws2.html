@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Example</title>
+   <style>
+  body, html {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0; /* Background color */
+      overflow-x: hidden; /* Hide horizontal scrollbar if any */
+      padding: 20px; /* Padding instead of margin */
+    }
+    table {
+      width: calc(100% - 40px); /* Adjust width to fit padding */
+      border-collapse: collapse;
+      border-radius: 10px; /* Rounded corners */
+      overflow: hidden; /* Hide overflow content */
+      margin-bottom: 0; /* Remove default margin */
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    tr {
+      margin-bottom: 10px; /* Add space between rows */
+    }
+  </style>
+</head>
+<body>
+  <table id="pricesTable">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="AAPL">
+        <td>AAPL</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="BINANCE:BTCUSDT">
+        <td>BINANCE:BTCUSDT</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="TSLA">
+        <td>TSLA</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="MSFT">
+        <td>MSFT</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="AMZN">
+        <td>AMZN</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="GOOGL">
+        <td>GOOGL</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="NFLX">
+        <td>NFLX</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="NVDA">
+        <td>NVDA</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+      <tr id="PYPL">
+        <td>PYPL</td>
+        <td>Loading...</td>
+        <td>N/A</td>
+      </tr>
+   
+     
+    </tbody>
+  </table>
+
+  <script>
+     const socket = new WebSocket('ws://172.27.5.31:5000');
+
+        // When the connection is open, send some data to the server
+        socket.addEventListener('open', function (event) {
+            console.log('WebSocket connection opened');
+        });
+
+        // When the connection is closed, log the event
+        socket.addEventListener('close', function (event) {
+            console.log('WebSocket connection closed');
+        });
+
+
+    socket.addEventListener('message', function (event) {
+      const data = JSON.parse(event.data);
+      if (data.type === 'trade') {
+        updatePrice(data.data);
+      }
+    });
+
+    function updatePrice(data) {
+      data.forEach(entry => {
+        const symbol = entry.s;
+        const price = entry.p;
+        const timestamp = new Date(entry.t).toLocaleString();
+        const row = document.getElementById(symbol.replace(':', '_')); // Find the row by symbol
+        if (row) {
+          // Update the price cell only
+          row.cells[1].textContent = price;
+          // Update the timestamp cell
+          row.cells[2].textContent = timestamp;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
