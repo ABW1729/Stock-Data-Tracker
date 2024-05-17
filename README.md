@@ -21,7 +21,7 @@ The Stock Data Tracker is a real-time application that tracks stock prices using
 ## Getting Started
 
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/stock-data-tracker.git  
+git clone https://github.com/ABW1729/stock-data-tracker.git  
  cd stock-data-tracker
 
 ### 2. Create .env file and add following
