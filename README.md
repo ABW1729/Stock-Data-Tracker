@@ -25,8 +25,8 @@ git clone https://github.com/ABW1729/stock-data-tracker.git
  cd stock-data-tracker
 
 ### 2. Create .env file and add following
-FINNHUB_API_KEY=your_finnhub_api_key
-KAFKA_BROKER_URL=your_kafka_broker_url
+FINNHUB_API_KEY=your_finnhub_api_key  
+KAFKA_BROKER_URL=your_kafka_broker_url  
 KAFKA_TOPIC=your_kafka_topic
 
 ### 3. Run the App
